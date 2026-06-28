@@ -2,11 +2,17 @@
 """Improve About, Partners, Contact, and Services inner pages."""
 import os
 import re
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
+if SCRIPTS_DIR not in sys.path:
+    sys.path.insert(0, SCRIPTS_DIR)
 os.chdir(ROOT)
 
-PAGES_CSS = '<link rel="stylesheet" href="/assets/css/wafa-pages.css?v=1" media="all" />\n'
+from fix_emails import EMAIL_LINK, fix_emails
+
+PAGES_CSS = '<link rel="stylesheet" href="/assets/css/wafa-pages.css?v=2" media="all" />\n'
 CONTACT_JS = '<script src="/assets/js/wafa-contact-form.js" defer></script>\n'
 
 ABOUT_STATS = """
@@ -213,13 +219,13 @@ def fix_contact(content: str) -> str:
     )
     content = re.sub(
         r"You can use this webform or alternatively email us at[^<]*<a[^>]*>\[email&#160;protected\]</a>\.",
-        'Send us a message below or email <a href="mailto:info@wafaenterprises.com">info@wafaenterprises.com</a> directly. Include your name and contact details so we can respond quickly.',
+        'Send us a message below or email ' + EMAIL_LINK + ' directly. Include your name and contact details so we can respond quickly.',
         content,
         count=1,
     )
     content = re.sub(
         r'Write us: <a href="/cdn-cgi/l/email-protection[^"]*"><span class="__cf_email__"[^>]*>\[email&#160;protected\]</span></a>',
-        'Write us: <a href="mailto:info@wafaenterprises.com">info@wafaenterprises.com</a>',
+        'Write us: ' + EMAIL_LINK,
         content,
         count=1,
     )
@@ -257,6 +263,7 @@ def patch_file(path: str, fixer) -> None:
     content = inject_css(content)
     content = add_body_class(content)
     content = fixer(content)
+    content = fix_emails(content)
     if content != original:
         with open(path, "w", encoding="utf-8", newline="\n") as f:
             f.write(content)

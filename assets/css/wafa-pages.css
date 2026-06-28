@@ -160,17 +160,30 @@ body.wafa-inner-page .team .desc_wrappper_title {
 
 body.wafa-inner-page .lshowcase-logos {
   display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
-  max-width: 1100px;
+  width: 100%;
+  max-width: 960px;
   margin: 0 auto;
   padding: 8px 0 24px;
 }
 
-body.wafa-inner-page .lshowcase-box-3 {
+/* Logo Showcase plugin wraps tiles in an extra div — flatten for grid layout */
+body.wafa-inner-page .lshowcase-logos > div {
+  display: contents;
+}
+
+body.wafa-inner-page .lshowcase-clear-both {
+  display: none;
+}
+
+body.wafa-inner-page .lshowcase-box-3,
+body.wafa-inner-page .lshowcase-wrap-responsive {
   float: none !important;
-  width: auto !important;
+  width: 100% !important;
+  max-width: none !important;
   margin: 0 !important;
+  min-width: 0;
 }
 
 body.wafa-inner-page .lshowcase-boxInner {
@@ -409,6 +422,11 @@ body.wafa-inner-page .google-map:empty {
   .wafa-services-grid {
     grid-template-columns: 1fr;
   }
+
+  body.wafa-inner-page .lshowcase-logos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -424,5 +442,9 @@ body.wafa-inner-page .google-map:empty {
 
   .wafa-map-embed {
     height: 300px;
+  }
+
+  body.wafa-inner-page .lshowcase-logos {
+    grid-template-columns: 1fr;
   }
 }

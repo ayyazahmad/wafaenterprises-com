@@ -2,10 +2,16 @@
 """Apply improved site footer to all HTML pages."""
 import os
 import re
+import sys
 from datetime import datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
+if SCRIPTS_DIR not in sys.path:
+    sys.path.insert(0, SCRIPTS_DIR)
 os.chdir(ROOT)
+
+from fix_emails import EMAIL_LINK, fix_emails
 
 FOOTER_CSS = '<link rel="stylesheet" href="/assets/css/wafa-footer.css?v=6" media="all" />\n'
 
@@ -53,7 +59,7 @@ FOOTER_HTML = f"""\t<footer id="Footer" class="clearfix wafa-footer">
 \t\t\t\t\t\t\t</p>
 \t\t\t\t\t\t\t<p class="wafa-footer__contact-row">
 \t\t\t\t\t\t\t\t<span class="wafa-footer__contact-icon" aria-hidden="true">&#9993;</span>
-\t\t\t\t\t\t\t\t<a href="mailto:info@wafaenterprises.com">info@wafaenterprises.com</a>
+\t\t\t\t\t\t\t\t{EMAIL_LINK}
 \t\t\t\t\t\t\t</p>
 \t\t\t\t\t\t</address>
 \t\t\t\t\t\t<p class="wafa-footer__branches"><strong>Lahore branches</strong> Defence &middot; Ichhra &middot; S &amp; H &middot; Model Town</p>
@@ -102,6 +108,7 @@ def patch_file(path: str) -> bool:
     original = content
     content = inject_css(content)
     content = replace_footer(content)
+    content = fix_emails(content)
     if content == original:
         return False
     with open(path, "w", encoding="utf-8", newline="\n") as f:

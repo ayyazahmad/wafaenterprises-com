@@ -3,6 +3,7 @@
 import os
 import re
 import subprocess
+import sys
 import time
 import urllib.error
 import urllib.request
@@ -10,7 +11,12 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
+if SCRIPTS_DIR not in sys.path:
+    sys.path.insert(0, SCRIPTS_DIR)
 os.chdir(ROOT)
+
+from fix_emails import EMAIL_LINK, fix_emails
 
 BASE_URL = "https://wafaenterprises.com"
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
@@ -197,7 +203,7 @@ STATIC_FOOTER = f"""
 							</p>
 							<p class="wafa-footer__contact-row">
 								<span class="wafa-footer__contact-icon" aria-hidden="true">&#9993;</span>
-								<a href="mailto:info@wafaenterprises.com">info@wafaenterprises.com</a>
+								{EMAIL_LINK}
 							</p>
 						</address>
 						<p class="wafa-footer__branches"><strong>Lahore branches</strong> Defence &middot; Ichhra &middot; S &amp; H &middot; Model Town</p>
@@ -350,6 +356,7 @@ def fix_html_content(content: str) -> str:
         "",
         content,
     )
+    content = fix_emails(content)
     content = re.sub(
         r"https://wafaenterprises\.com/wp-content/uploads/",
         "/wp-content/uploads/",
