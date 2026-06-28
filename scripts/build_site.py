@@ -237,9 +237,11 @@ jQuery(function($) {
   update();
 });
 </script>
+<script src="/assets/js/mfn-config.js"></script>
 <script src="/wp-content/themes/betheme/js/plugins.min.js?ver=28.2.1"></script>
 <script src="/wp-content/themes/betheme/js/menu.min.js?ver=28.2.1"></script>
 <script src="/wp-content/themes/betheme/js/scripts.min.js?ver=28.2.1"></script>
+<script src="/assets/js/wafa-mobile-menu.js?v=3" defer></script>
 </body>
 </html>
 """

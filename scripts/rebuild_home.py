@@ -125,7 +125,7 @@ def update_interactive_css(content: str) -> str:
 
 
 def ensure_assets(content: str) -> str:
-    css = '<link rel="stylesheet" href="/assets/css/wafa-home.css" media="all" />'
+    css = '<link rel="stylesheet" href="/assets/css/wafa-home.css?v=3" media="all" />'
     js = '<script src="/assets/js/wafa-hero-slider.js" defer></script>'
     if css not in content:
         content = content.replace("</head>", css + "\n</head>", 1)

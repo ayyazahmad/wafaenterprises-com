@@ -145,6 +145,16 @@ body.layout-boxed #Wrapper {
 
 
 
+<link rel="stylesheet" href="/assets/css/wafa-home.css?v=3" media="all" />
+<link rel="stylesheet" href="/assets/css/wafa-footer.css?v=6" media="all" />
+
+
+
+
+
+
+
+
 <style id="static-interactive-fix">
 body.template-slider .mfn-main-slider { min-height: 0; margin: 0; padding: 0; }
 body.template-slider #Header_wrapper { min-height: 0; }
@@ -161,9 +171,123 @@ body.template-slider #Header_wrapper { min-height: 0; }
   color: #fff !important;
 }
 #back_to_top.sticky i:before { color: #fff; font-family: mfn-icons !important; }
+
+@media (max-width: 1239px) {
+  #Top_bar .top_bar_left {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative !important;
+    width: 100% !important;
+    float: none !important;
+    min-height: 60px;
+    padding: 0 !important;
+    box-sizing: border-box;
+    z-index: 100010;
+  }
+  #Top_bar .top_bar_left .logo {
+    flex: 0 1 auto;
+    max-width: calc(100% - 52px);
+    width: auto !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 0 0 8px !important;
+    text-align: left !important;
+    position: static !important;
+  }
+  #Top_bar .top_bar_left .logo #logo,
+  #Top_bar .top_bar_left .logo .custom-logo-link {
+    margin: 6px 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    line-height: normal !important;
+  }
+  #Top_bar .menu_wrapper {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    padding: 0 8px 0 0 !important;
+    position: static !important;
+    float: none !important;
+    width: auto !important;
+  }
+  body.mobile-header-mini #Top_bar a.responsive-menu-toggle,
+  #Top_bar a.responsive-menu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    margin: 0 !important;
+    margin-top: 0 !important;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    z-index: 100013;
+    float: none !important;
+  }
+  #Top_bar a.responsive-menu-toggle i {
+    font-family: mfn-icons !important;
+    font-size: 22px;
+    line-height: 1;
+  }
+  #Top_bar a.responsive-menu-toggle.active i.icon-cancel-fine:before {
+    content: '\e963';
+  }
+  #Top_bar #menu {
+    display: none !important;
+    position: absolute !important;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100% !important;
+    margin: 0;
+    padding: 8px 0;
+    background: #366ec2;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+    z-index: 100012;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    float: none !important;
+  }
+  body.wafa-mobile-menu-open #Top_bar #menu {
+    display: block !important;
+  }
+  body.wafa-mobile-menu-open #Top_bar {
+    position: relative;
+    z-index: 100015;
+  }
+  #Top_bar #menu ul { width: 100%; float: none; }
+  #Top_bar #menu ul li { width: 100%; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+  #Top_bar #menu ul li:last-child { border-bottom: 0; }
+  #Top_bar #menu ul li a {
+    display: block;
+    padding: 0 18px;
+    color: #fff !important;
+    line-height: 44px;
+  }
+  #Top_bar #menu ul li a span { color: inherit; border: 0; line-height: 44px; }
+  #Top_bar #menu ul li.current-menu-item > a,
+  #Top_bar #menu ul li.current_page_item > a { background: rgba(0, 0, 0, 0.12); }
+}
+
+#wafa-mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 100009;
+}
+#wafa-mobile-menu-overlay[hidden] { display: none !important; }
+body.wafa-mobile-menu-open { overflow: hidden; }
 </style>
-<link rel="stylesheet" href="/assets/css/wafa-home.css" media="all" />
-<link rel="stylesheet" href="/assets/css/wafa-footer.css?v=6" media="all" />
+
 </head>
 
 <body class="home wp-singular page-template-default page page-id-67 wp-embed-responsive wp-theme-betheme woocommerce-block-theme-has-button-styles template-slider  color-custom content-brightness-light input-brightness-light style-simple button-animation-fade layout-boxed no-content-padding header-classic header-boxed sticky-header sticky-tb-color ab-hide menuo-right logo-valign-top logo-no-margin logo-no-sticky-padding subheader-both-center footer-copy-center responsive-overflow-x-mobile boxed2fw mobile-tb-left mobile-mini-mr-ll mobile-header-mini mobile-icon-user-ss mobile-icon-wishlist-ss mobile-icon-search-ss mobile-icon-wpml-ss mobile-icon-action-ss be-page-67 be-2821 wpb-js-composer js-comp-ver-8.7.2 vc_responsive" >
@@ -402,11 +526,11 @@ Lahore.<br/>
 <a id="back_to_top" class="button button_js sticky scroll" href="#" aria-label="Back to top"><i class="icon-up-open-big"></i></a>
 
 
+<script src="/assets/js/mfn-config.js"></script>
 <script src="/wp-content/themes/betheme/js/plugins.min.js?ver=28.2.1"></script>
 <script src="/wp-content/themes/betheme/js/menu.min.js?ver=28.2.1"></script>
 <script src="/wp-content/themes/betheme/js/scripts.min.js?ver=28.2.1"></script>
 
-<script src="/assets/js/wafa-hero-slider.js" defer></script>
 <script id="static-back-to-top">
 (function() {
   function update() {
@@ -420,6 +544,12 @@ Lahore.<br/>
 })();
 </script>
 
+<script src="/assets/js/wafa-mobile-menu.js?v=3" defer></script>
 
+
+<script src="/assets/js/wafa-mobile-menu.js?v=2" defer></script>
+
+
+<script src="/assets/js/wafa-hero-slider.js" defer></script>
 </body>
 </html>
