@@ -153,7 +153,15 @@ body.wafa-mobile-menu-open { overflow: hidden; }
 MFN_CONFIG_JS = '<script src="/assets/js/mfn-config.js"></script>\n'
 WAFA_MOBILE_MENU_JS = '<script src="/assets/js/wafa-mobile-menu.js?v=3" defer></script>\n'
 
-WAFA_HOME_CSS = '<link rel="stylesheet" href="/assets/css/wafa-home.css?v=3" media="all" />\n'
+WAFA_HOME_CSS = '<link rel="stylesheet" href="/assets/css/wafa-home.css?v=4" media="all" />\n'
+
+DISTRIBUTION_IMG = (
+    '<img class="wafa-distribution-mobile" src="/wp-content/uploads/2016/10/distribution.png" '
+    'alt="Wafa Enterprises distribution fleet" loading="lazy" />'
+)
+DISTRIBUTION_INSERT_MARKER = (
+    '</div></div></div></div></div><div  class="wrap mcb-wrap mcb-wrap-69cd6b461'
+)
 WAFA_FOOTER_CSS = '<link rel="stylesheet" href="/assets/css/wafa-footer.css?v=6" media="all" />\n'
 WAFA_HERO_JS = '<script src="/assets/js/wafa-hero-slider.js" defer></script>\n'
 
@@ -235,11 +243,28 @@ def inject_after_scripts(content: str, block: str) -> str:
 
 
 def inject_home_assets(content: str) -> str:
-    if WAFA_HOME_CSS.strip() not in content:
-        content = inject_before_first_head_close(content, WAFA_HOME_CSS)
+    content = re.sub(
+        r'<link rel="stylesheet" href="/assets/css/wafa-home\.css[^"]*" media="all" />\s*',
+        "",
+        content,
+    )
+    content = inject_before_first_head_close(content, WAFA_HOME_CSS)
     if WAFA_HERO_JS.strip() not in content:
         content = inject_after_scripts(content, WAFA_HERO_JS)
+    content = inject_distribution_image(content)
     return content
+
+
+def inject_distribution_image(content: str) -> str:
+    if DISTRIBUTION_IMG in content:
+        return content
+    if DISTRIBUTION_INSERT_MARKER not in content:
+        return content
+    replacement = (
+        f"</div>{DISTRIBUTION_IMG}</div></div></div></div>"
+        f'<div  class="wrap mcb-wrap mcb-wrap-69cd6b461'
+    )
+    return content.replace(DISTRIBUTION_INSERT_MARKER, replacement, 1)
 
 
 def patch_file(path: str, is_home: bool) -> bool:

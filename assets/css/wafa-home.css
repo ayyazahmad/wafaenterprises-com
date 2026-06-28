@@ -150,6 +150,10 @@ body.template-slider #Header_wrapper {
   margin-top: 8px;
 }
 
+.wafa-distribution-mobile {
+  display: none;
+}
+
 @media (max-width: 767px) {
   .wafa-hero {
     aspect-ratio: 16 / 10;
@@ -215,14 +219,13 @@ body.template-slider #Header_wrapper {
     font-weight: 400 !important;
   }
 
-  .mcb-section-a70359720 .mcb-wrap-8dbe7ebbf::after {
-    content: "";
+  .wafa-distribution-mobile {
     display: block;
     width: 100%;
-    height: 170px;
-    margin: 16px 0 8px;
-    background: url(/wp-content/uploads/2016/10/distribution.png) no-repeat center bottom;
-    background-size: contain;
+    max-width: 100%;
+    height: auto;
+    margin: 16px 0 0;
+    padding: 0;
   }
 
   .mcb-section-a70359720 .mcb-wrap-69cd6b461 {
