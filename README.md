@@ -13,6 +13,8 @@ Open [http://localhost:8080](http://localhost:8080).
 ## Maintenance scripts
 
 - `scripts/build_site.py` — download pages/assets from live site and localize URLs
+- `scripts/fix_and_fetch.py` — fix HTML URLs and fetch missing assets
+- `scripts/apply_seo.py` — Google Analytics, meta tags, Open Graph, JSON-LD, sitemap
 - `scripts/verify_assets.py` — report missing local asset references
 
 ## Deploy

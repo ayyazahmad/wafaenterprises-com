@@ -7,6 +7,7 @@ import time
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
+from datetime import datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
@@ -15,7 +16,7 @@ BASE_URL = "https://wafaenterprises.com"
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 NS = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
-PAGES = ["/", "/about/", "/partners/", "/contact/", "/services/", "/certificates/"]
+PAGES = ["/", "/about/", "/partners/", "/contact/", "/services/"]
 
 REPLACEMENTS = [
     ("https://wafaenterprises.com/wp-content/", "/wp-content/"),
@@ -32,7 +33,6 @@ PAGE_LINKS = [
     ("https://wafaenterprises.com/partners/", "/partners/"),
     ("https://wafaenterprises.com/contact/", "/contact/"),
     ("https://wafaenterprises.com/services/", "/services/"),
-    ("https://wafaenterprises.com/certificates/", "/certificates/"),
 ]
 
 LAYOUT_FIX = """
@@ -158,50 +158,79 @@ def ensure_lato_fonts() -> None:
         f.write(local_css)
 
 
-STATIC_FOOTER = """
-	<footer id="Footer" class="clearfix">
-		<div class="widgets_wrapper">
+STATIC_FOOTER = f"""
+	<footer id="Footer" class="clearfix wafa-footer">
+		<div class="widgets_wrapper wafa-footer__main">
 			<div class="container">
-				<div class="column one-third">
-					<aside class="widget widget_text">
-						<h4>Wafa Enterprises</h4>
-						<div class="textwidget">
-							<p>Major distributors of imported foods, beverages and consumer goods.</p>
-							<p><strong>Ph:</strong> 042-36621301</p>
-						</div>
-					</aside>
-				</div>
-				<div class="column one-third">
-					<aside class="widget widget_nav_menu">
+				<div class="wafa-footer__grid">
+					<div class="wafa-footer__brand">
+						<a href="/" class="wafa-footer__logo">
+							<img src="/wp-content/uploads/2022/01/Wafa-Enterprises-Logo-1-1.png" alt="Wafa Enterprises" width="200" height="75" loading="lazy">
+						</a>
+						<p class="wafa-footer__tagline">Major distributors of imported foods, beverages and consumer goods — import, manufacturing and nationwide distribution across Pakistan.</p>
+						<a class="wafa-footer__cta" href="/contact/">Get in touch</a>
+					</div>
+					<nav class="wafa-footer__col" aria-label="Footer navigation">
 						<h4>Quick Links</h4>
-						<ul class="menu">
+						<ul class="wafa-footer__links">
 							<li><a href="/">Home</a></li>
 							<li><a href="/about/">About</a></li>
 							<li><a href="/partners/">Partners</a></li>
 							<li><a href="/contact/">Contact</a></li>
 						</ul>
-					</aside>
-				</div>
-				<div class="column one-third">
-					<aside class="widget widget_text">
+					</nav>
+					<div class="wafa-footer__col">
+						<h4>Our Business</h4>
+						<ul class="wafa-footer__links">
+							<li><a href="/about/">Import &amp; Distribution</a></li>
+							<li><a href="/partners/">Brand Partners</a></li>
+							<li><a href="/services/">Services</a></li>
+						</ul>
+					</div>
+					<div class="wafa-footer__col">
 						<h4>Head Office</h4>
-						<div class="textwidget">
-							<p>House # E-141-1, Street # 7,<br>New Super Town, Defence Road,<br>Lahore, Pakistan</p>
-						</div>
-					</aside>
+						<address class="wafa-footer__contact">
+							<p class="wafa-footer__address">House # E-141-1, Street # 7,<br>New Super Town, Defence Road,<br>Lahore, Pakistan</p>
+							<p class="wafa-footer__contact-row">
+								<span class="wafa-footer__contact-icon" aria-hidden="true">&#9742;</span>
+								<a href="tel:+924236621301">042-36621301</a>
+							</p>
+							<p class="wafa-footer__contact-row">
+								<span class="wafa-footer__contact-icon" aria-hidden="true">&#9993;</span>
+								<a href="mailto:info@wafaenterprises.com">info@wafaenterprises.com</a>
+							</p>
+						</address>
+						<p class="wafa-footer__branches"><strong>Lahore branches</strong> Defence &middot; Ichhra &middot; S &amp; H &middot; Model Town</p>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="footer_copy">
+		<div class="footer_copy wafa-footer__bottom">
 			<div class="container">
-				<div class="column one">
-					<a class="copyright">&copy; 2026 Wafa Enterprises. All rights reserved.</a>
+				<div class="wafa-footer__bottom-inner">
+				<span class="copyright">Copyright &copy; {datetime.now().year} Wafa Enterprises, All rights reserved. Crafted with &#10084;&#65039; by <a href="https://azad.co/developer/" target="_blank" rel="noopener noreferrer">AzAd Solutions</a></span>
+				<ul class="wafa-footer__bottom-links">
+					<li><a href="/contact/">Contact</a></li>
+					<li><a href="/about/">About</a></li>
+					<li><a href="/partners/">Partners</a></li>
+				</ul>
 				</div>
 			</div>
 		</div>
 	</footer>
 </div>
-<a id="back_to_top" class="button button_js" href="#" aria-label="Back to top"><i class="icon-up-open-big"></i></a>
+<a id="back_to_top" class="button button_js sticky scroll" href="#" aria-label="Back to top"><i class="icon-up-open-big"></i></a>
+<script id="static-back-to-top">
+jQuery(function($) {
+  var $btn = $('#back_to_top.sticky.scroll');
+  if (!$btn.length) return;
+  function update() {
+    $btn.toggleClass('visible', $(window).scrollTop() > 200);
+  }
+  $(window).on('scroll', update);
+  update();
+});
+</script>
 <script src="/wp-content/themes/betheme/js/plugins.min.js?ver=28.2.1"></script>
 <script src="/wp-content/themes/betheme/js/menu.min.js?ver=28.2.1"></script>
 <script src="/wp-content/themes/betheme/js/scripts.min.js?ver=28.2.1"></script>
